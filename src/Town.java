@@ -11,6 +11,8 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private String treasure;
+    private boolean searched;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -30,6 +32,15 @@ public class Town {
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
+
+        int randTreasure = (int) (Math.random() * 10) + 1;
+
+        switch (randTreasure) {
+            case 1 -> treasure = "crown";
+            case 2 -> treasure = "trophy";
+            case 3 -> treasure = "gem";
+            default -> treasure = "dust";
+        }
     }
 
     public String getLatestNews() {
@@ -115,6 +126,18 @@ public class Town {
         }
     }
 
+    public void huntForTreasure() {
+        if (searched) {
+            printMessage = "You have already searched this town.";
+            return;
+        }
+
+        searched = true;
+            printMessage = "You found one " + Colors.BLUE + treasure + Colors.RESET + "!";
+        if (!treasure.equals("dust") && !hunter.addTreasure(treasure)) {
+            printMessage += "\nYou already have one " + Colors.BLUE + treasure + Colors.RESET + "!";
+        }
+    }
     public String toString() {
         return "This nice little town is surrounded by " + terrain.getTerrainName() + ".";
     }
