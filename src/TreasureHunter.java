@@ -104,7 +104,7 @@ public class TreasureHunter {
     private void showMenu() {
         String choice = "";
 
-        while (!choice.equals("x") && hunter.getGold() != 0) {
+        while (!choice.equals("x") && hunter.getGold() != 0 && !hunter.hasAllTreasures()) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -147,6 +147,11 @@ public class TreasureHunter {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else if (choice.equals("h")) {
             currentTown.huntForTreasure();
+            if (hunter.hasAllTreasures()) {
+                System.out.println();
+                System.out.println(currentTown.getLatestNews());
+                System.out.println(Colors.YELLOW + "Congratulations, you have found the last of the three treasures, you win!" + Colors.RESET);
+            }
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }

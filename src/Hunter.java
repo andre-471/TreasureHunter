@@ -119,18 +119,18 @@ public class Hunter {
      * @return The printable String representation of the inventory.
      */
     public String getInventory() {
-        String printableKit = Colors.PURPLE;
+        StringBuilder printableKit = new StringBuilder(Colors.PURPLE);
         String space = " ";
 
         for (String item : kit) {
             if (item != null) {
-                printableKit += item + space;
+                printableKit.append(item).append(space);
             }
         }
 
-        printableKit += Colors.RESET;
+        printableKit.append(Colors.RESET);
 
-        return printableKit;
+        return printableKit.toString();
     }
 
     public boolean addTreasure(String treasure) {
@@ -152,6 +152,16 @@ public class Hunter {
         printable.append(Colors.RESET);
 
         return printable.toString();
+    }
+
+    public boolean hasAllTreasures() {
+        for (String treasure : treasures) {
+            if (treasure == null) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
