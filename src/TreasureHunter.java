@@ -103,7 +103,7 @@ public class TreasureHunter {
     private void showMenu() {
         String choice = "";
 
-        while (!choice.equals("x")) {
+        while (!choice.equals("x") && hunter.getGold() != 0) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -136,6 +136,11 @@ public class TreasureHunter {
             }
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();
+            if (hunter.getGold() == 0) {
+                System.out.println();
+                System.out.println(currentTown.getLatestNews());
+                System.out.println(Colors.RED + "You lost all your coins! You lose!" + Colors.RESET);
+            }
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else {

@@ -27,6 +27,10 @@ public class Hunter {
         return hunterName;
     }
 
+    public int getGold() {
+        return gold;
+    }
+
     /**
      * Updates the amount of gold the hunter has.
      *
