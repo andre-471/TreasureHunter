@@ -139,14 +139,30 @@ public class Hunter {
         return true;
     }
 
+    public String getTreasureInventory() {
+        if (arrayIsEmpty(treasures)) { return "none"; }
+        StringBuilder printable = new StringBuilder(Colors.PURPLE);
+
+        for (String treasure : treasures) {
+            if (treasure != null) {
+            printable.append("a ").append(treasure).append(" ");
+            }
+        }
+
+        printable.append(Colors.RESET);
+
+        return printable.toString();
+    }
+
     /**
      * @return A string representation of the hunter.
      */
     public String toString() {
         String str = hunterName + " has " + Colors.YELLOW + gold + " gold" + Colors.RESET;
-        if (!kitIsEmpty()) {
+        if (!arrayIsEmpty(kit)) {
             str += " and " + getInventory();
         }
+        str += "\nTreasures found: " + getTreasureInventory();
         return str;
     }
 
@@ -201,8 +217,8 @@ public class Hunter {
      *
      * @return true if kit is completely empty.
      */
-    private boolean kitIsEmpty() {
-        for (String string : kit) {
+    private boolean arrayIsEmpty(String[] array) {
+        for (String string : array) {
             if (string != null) {
                 return false;
             }
