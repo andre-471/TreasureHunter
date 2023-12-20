@@ -119,6 +119,7 @@ public class TreasureHunter {
             System.out.println();
             System.out.print("What's your next move? ");
             choice = SCANNER.nextLine().toLowerCase();
+            currentTown.resetTownMessage();
             processChoice(choice);
         }
     }

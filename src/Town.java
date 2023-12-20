@@ -54,13 +54,7 @@ public class Town {
      */
     public void hunterArrives(Hunter hunter) {
         this.hunter = hunter;
-        printMessage = "Welcome to town, " + hunter.getHunterName() + ".";
-
-        if (toughTown) {
-            printMessage += "\nIt's pretty rough around here, so watch yourself.";
-        } else {
-            printMessage += "\nWe're just a sleepy little town with mild mannered folk.";
-        }
+        resetTownMessage();
     }
 
     /**
@@ -75,7 +69,7 @@ public class Town {
             printMessage = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
             if (checkItemBreak()) {
                 hunter.removeItemFromKit(item);
-                printMessage += "\nUnfortunately, your " + item + " broke.";
+                printMessage += "\nUnfortunately, you lost your " + item + ".";
             }
 
             return true;
@@ -92,6 +86,7 @@ public class Town {
      */
     public void enterShop(String choice) {
         shop.enter(hunter, choice);
+        printMessage = "You left the shop.";
     }
 
     /**
@@ -138,6 +133,17 @@ public class Town {
             printMessage += "\nYou already have one " + Colors.BLUE + treasure + Colors.RESET + "!";
         }
     }
+
+    public void resetTownMessage() {
+        printMessage = "Welcome to town, " + hunter.getHunterName() + ".";
+
+        if (toughTown) {
+            printMessage += "\nIt's pretty rough around here, so watch yourself.";
+        } else {
+            printMessage += "\nWe're just a sleepy little town with mild mannered folk.";
+        }
+    }
+
     public String toString() {
         return "This nice little town is surrounded by " + terrain.getTerrainName() + ".";
     }
