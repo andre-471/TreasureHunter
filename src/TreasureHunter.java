@@ -115,6 +115,7 @@ public class TreasureHunter {
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
             System.out.println("(H)unt for treasure!");
+            System.out.println("(D)ig for gold!");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
@@ -129,32 +130,34 @@ public class TreasureHunter {
      * @param choice The action to process.
      */
     private void processChoice(String choice) {
-        if (choice.equals("b") || choice.equals("s")) {
-            currentTown.enterShop(choice);
-        } else if (choice.equals("m")) {
-            if (currentTown.leaveTown()) {
-                // This town is going away so print its news ahead of time.
-                System.out.println(currentTown.getLatestNews());
-                enterTown();
+        switch (choice) {
+            case "b", "s" -> currentTown.enterShop(choice);
+            case "m" -> {
+                if (currentTown.leaveTown()) {
+                    // This town is going away so print its news ahead of time.
+                    System.out.println(currentTown.getLatestNews());
+                    enterTown();
+                }
             }
-        } else if (choice.equals("l")) {
-            currentTown.lookForTrouble();
-            if (hunter.getGold() == 0) {
-                System.out.println();
-                System.out.println(currentTown.getLatestNews());
-                System.out.println(Colors.RED + "You lost all your coins! You lose!" + Colors.RESET);
+            case "l" -> {
+                currentTown.lookForTrouble();
+                if (hunter.getGold() == 0) {
+                    System.out.println();
+                    System.out.println(currentTown.getLatestNews());
+                    System.out.println(Colors.RED + "You lost all your coins! You lose!" + Colors.RESET);
+                }
             }
-        } else if (choice.equals("x")) {
-            System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
-        } else if (choice.equals("h")) {
-            currentTown.huntForTreasure();
-            if (hunter.hasAllTreasures()) {
-                System.out.println();
-                System.out.println(currentTown.getLatestNews());
-                System.out.println(Colors.YELLOW + "Congratulations, you have found the last of the three treasures, you win!" + Colors.RESET);
+            case "x" -> System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
+            case "h" -> {
+                currentTown.huntForTreasure();
+                if (hunter.hasAllTreasures()) {
+                    System.out.println();
+                    System.out.println(currentTown.getLatestNews());
+                    System.out.println(Colors.YELLOW + "Congratulations, you have found the last of the three treasures, you win!" + Colors.RESET);
+                }
             }
-        } else {
-            System.out.println("Yikes! That's an invalid option! Try again.");
+            case "d" -> currentTown.digForGold();
+            default -> System.out.println("Yikes! That's an invalid option! Try again.");
         }
     }
 }

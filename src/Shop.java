@@ -14,6 +14,7 @@ public class Shop {
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
     private static final int BOOTS_COST = 19;
+    private static final int SHOVEL_COST = 8;
 
     // static variables
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -89,6 +90,7 @@ public class Shop {
         str += "Horse: " + HORSE_COST + " gold\n";
         str += "Boat: " + BOAT_COST + " gold\n";
         str += "Boots: " + BOOTS_COST + " gold\n";
+        str += "Shovel: " + SHOVEL_COST + " gold\n";
 
         return str;
     }
@@ -143,21 +145,16 @@ public class Shop {
      * @return The cost of the item or 0 if the item is not found.
      */
     public int getCostOfItem(String item) {
-        if (item.equals("water")) {
-            return WATER_COST;
-        } else if (item.equals("rope")) {
-            return ROPE_COST;
-        } else if (item.equals("machete")) {
-            return MACHETE_COST;
-        } else if (item.equals("horse")) {
-            return HORSE_COST;
-        } else if (item.equals("boat")) {
-            return BOAT_COST;
-        } else if (item.equals("boots")) {
-            return BOOTS_COST;
-        } else {
-            return 0;
-        }
+        return switch (item) {
+            case "water" -> WATER_COST;
+            case "rope" -> ROPE_COST;
+            case "machete" -> MACHETE_COST;
+            case "horse" -> HORSE_COST;
+            case "boat" -> BOAT_COST;
+            case "boots" -> BOOTS_COST;
+            case "shovel" -> SHOVEL_COST;
+            default -> 0;
+        };
     }
 
     /**
@@ -167,7 +164,6 @@ public class Shop {
      * @return The sell price of the item.
      */
     public int getBuyBackCost(String item) {
-        int cost = (int) (getCostOfItem(item) * markdown);
-        return cost;
+        return (int) (getCostOfItem(item) * markdown);
     }
 }
