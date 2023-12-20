@@ -16,7 +16,8 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
-    private boolean testMode;
+    private boolean easyMode;
+
 
     /**
      * Constructs the Treasure Hunter game.
@@ -26,7 +27,8 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
-        testMode = false;
+        easyMode= false;
+
     }
 
     /**
@@ -37,7 +39,9 @@ public class TreasureHunter {
         enterTown();
         showMenu();
     }
-
+    public boolean ifEasyMode() {
+        return easyMode;
+    }
     /**
      * Creates a hunter object at the beginning of the game and populates the class member variable with it.
      */
@@ -50,12 +54,14 @@ public class TreasureHunter {
         // set hunter instance variable
         hunter = new Hunter(name, 10);
 
-        System.out.print("Hard mode? (y/n): ");
+        System.out.print("Hard, normal, easy? (h, n, e): ");
         String hard = SCANNER.nextLine().toLowerCase();
         if (hard.equals("y")) {
             hardMode = true;
+        } else if(hard.equals("e")) {
+            easyMode = true;
+            hunter.changeGold(10);
         } else if (hard.equals("test")) {
-            testMode = true;
             hunter.changeGold(153);
             hunter.buyItem("water", 2);
             hunter.buyItem("rope", 4);
@@ -77,6 +83,9 @@ public class TreasureHunter {
 
             // and the town is "tougher"
             toughness = 0.75;
+        } if (easyMode) {
+            markdown = 1;
+            toughness = 0.2;
         }
 
         // note that we don't need to access the Shop object
@@ -132,7 +141,7 @@ public class TreasureHunter {
         if (choice.equals("b") || choice.equals("s")) {
             currentTown.enterShop(choice);
         } else if (choice.equals("m")) {
-            if (currentTown.leaveTown()) {
+            if (currentTown.leaveTown(easyMode)) {
                 // This town is going away so print its news ahead of time.
                 System.out.println(currentTown.getLatestNews());
                 enterTown();
