@@ -123,6 +123,7 @@ public class TreasureHunter {
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
             System.out.println("(H)unt for treasure!");
+            System.out.println("(D)ig for gold!");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
@@ -161,6 +162,8 @@ public class TreasureHunter {
                 System.out.println(currentTown.getLatestNews());
                 System.out.println(Colors.YELLOW + "Congratulations, you have found the last of the three treasures, you win!" + Colors.RESET);
             }
+        } else if (choice.equals("d")) {
+            currentTown.digForGold();
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }
