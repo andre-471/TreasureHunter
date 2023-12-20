@@ -17,7 +17,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private boolean easyMode;
-
+    private boolean samuraiMode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -28,6 +28,7 @@ public class TreasureHunter {
         hunter = null;
         hardMode = false;
         easyMode= false;
+        samuraiMode = false;
 
     }
 
@@ -39,9 +40,7 @@ public class TreasureHunter {
         enterTown();
         showMenu();
     }
-    public boolean ifEasyMode() {
-        return easyMode;
-    }
+
     /**
      * Creates a hunter object at the beginning of the game and populates the class member variable with it.
      */

@@ -92,6 +92,7 @@ public class Shop {
         str += "Boots: " + BOOTS_COST + " gold\n";
         str += "Shovel: " + SHOVEL_COST + " gold\n";
 
+
         return str;
     }
 
