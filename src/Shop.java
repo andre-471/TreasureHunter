@@ -15,7 +15,7 @@ public class Shop {
     private static final int BOAT_COST = 20;
     private static final int BOOTS_COST = 19;
     private static final int SHOVEL_COST = 8;
-
+    private static final int SWORD_COST = 0;
     // static variables
     private static final Scanner SCANNER = new Scanner(System.in);
 
@@ -39,24 +39,29 @@ public class Shop {
      * @param hunter the Hunter entering the shop
      * @param buyOrSell String that determines if hunter is "B"uying or "S"elling
      */
-    public void enter(Hunter hunter, String buyOrSell) {
+    public void enter(Hunter hunter, String buyOrSell, boolean samuraiMode) {
         customer = hunter;
 
         if (buyOrSell.equals("b")) {
             System.out.println("Welcome to the shop! We have the finest wares in town.");
             System.out.println("Currently we have the following items:");
-            System.out.println(inventory());
+            System.out.println(inventory(samuraiMode));
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, true);
             if (cost == 0) {
                 System.out.println("We ain't got none of those.");
+            }  else if (customer.itemInKit("sword")) {
+                System.out.println("nice sword, it's on the house (y/n)?");
             } else {
                 System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
                 String option = SCANNER.nextLine().toLowerCase();
 
                 if (option.equals("y")) {
                     buyItem(item);
+                }
+                if (option.equals("y") && samuraiMode) {
+                    customer.addItem(item);
                 }
             }
         } else {
@@ -83,7 +88,7 @@ public class Shop {
      *
      * @return the string representing the shop's items available for purchase and their prices.
      */
-    public String inventory() {
+    public String inventory(boolean samuraiMode) {
         String str = "Water: " + WATER_COST + " gold\n";
         str += "Rope: " + ROPE_COST + " gold\n";
         str += "Machete: " + MACHETE_COST + " gold\n";
@@ -91,7 +96,9 @@ public class Shop {
         str += "Boat: " + BOAT_COST + " gold\n";
         str += "Boots: " + BOOTS_COST + " gold\n";
         str += "Shovel: " + SHOVEL_COST + " gold\n";
-
+            if (samuraiMode) {
+                str += "Sword: " + SWORD_COST  + "gold\n";
+            }
 
         return str;
     }

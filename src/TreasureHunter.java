@@ -68,6 +68,8 @@ public class TreasureHunter {
             hunter.buyItem("horse", 12);
             hunter.buyItem("boat", 20);
             hunter.buyItem("boots", 19);
+        } else if (hard.equals("s")) {
+            samuraiMode = true;
         }
     }
     /**
@@ -139,7 +141,7 @@ public class TreasureHunter {
      */
     private void processChoice(String choice) {
         if (choice.equals("b") || choice.equals("s")) {
-            currentTown.enterShop(choice);
+            currentTown.enterShop(choice, samuraiMode);
         } else if (choice.equals("m")) {
             if (currentTown.leaveTown(easyMode)) {
                 // This town is going away so print its news ahead of time.
