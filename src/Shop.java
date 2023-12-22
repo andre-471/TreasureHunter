@@ -49,19 +49,16 @@ public class Shop {
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, true);
-            if (cost == 0) {
+            if (cost == 0 && !item.equals("sword")) {
                 System.out.println("We ain't got none of those.");
             }  else if (customer.itemInKit("sword")) {
-                System.out.println("nice sword, it's on the house (y/n)?");
+                System.out.println("nice sword, it's on the house ");
+                customer.addItem(item);
             } else {
                 System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
                 String option = SCANNER.nextLine().toLowerCase();
-
-                if (option.equals("y")) {
+                if (option.equals("y") ) {
                     buyItem(item);
-                }
-                if (option.equals("y") && samuraiMode) {
-                    customer.addItem(item);
                 }
             }
         } else {
@@ -97,7 +94,7 @@ public class Shop {
         str += "Boots: " + BOOTS_COST + " gold\n";
         str += "Shovel: " + SHOVEL_COST + " gold\n";
             if (samuraiMode) {
-                str += "Sword: " + SWORD_COST  + "gold\n";
+                str += "Sword: " + SWORD_COST  + " gold\n";
             }
 
         return str;
@@ -161,6 +158,7 @@ public class Shop {
             case "boat" -> BOAT_COST;
             case "boots" -> BOOTS_COST;
             case "shovel" -> SHOVEL_COST;
+            case "sword" -> SWORD_COST;
             default -> 0;
         };
     }
